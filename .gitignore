@@ -1,0 +1,8 @@
+# Godot-specific ignores
+.import/
+.export/
+.cache/
+mono/
+data_*/
+export.cfg
+export_presets.cfg
