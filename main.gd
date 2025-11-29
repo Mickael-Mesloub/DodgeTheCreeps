@@ -8,13 +8,15 @@ func _ready() -> void:
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func game_over() -> void:
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$HUD.show_game_over()
+	$Music.stop()
+	$DeathSound.play()
 	
 func new_game():
 	# Set the score to 0.
@@ -30,6 +32,8 @@ func new_game():
 	# Remove all mobs that could be remaining from previous game
 	# if player restarts the game after Game over.
 	get_tree().call_group("mobs", "queue_free")
+	
+	$Music.play()
 
 func _on_mob_timer_timeout() -> void:
 	# Create a mob instance.

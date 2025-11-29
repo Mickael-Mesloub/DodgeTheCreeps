@@ -8,7 +8,7 @@ func _ready() -> void:
 	$Fly_Collision.disabled = random_mob_type != "fly" # Disable fly animation when mob is not flying
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 # Make the mobs delete themselves when they leave the screen
