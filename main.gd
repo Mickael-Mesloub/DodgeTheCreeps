@@ -14,11 +14,22 @@ func _process(delta: float) -> void:
 func game_over() -> void:
 	$ScoreTimer.stop()
 	$MobTimer.stop()
+	$HUD.show_game_over()
 	
 func new_game():
+	# Set the score to 0.
 	score = 0
+	# Set the player's start position.
 	$Player.start($StartPosition.position)
+	# Start the timer before the game starts.
 	$StartTimer.start()
+	# Call the update_score method from HUD.
+	$HUD.update_score(score)
+	# Display a message before the game starts.
+	$HUD.show_message("Get ready!")
+	# Remove all mobs that could be remaining from previous game
+	# if player restarts the game after Game over.
+	get_tree().call_group("mobs", "queue_free")
 
 func _on_mob_timer_timeout() -> void:
 	# Create a mob instance.
@@ -51,3 +62,7 @@ func _on_start_timer_timeout() -> void:
 
 func _on_score_timer_timeout() -> void:
 	score += 1
+	$HUD.update_score(score)
+
+func _on_hud_start_game() -> void:
+	pass # Replace with function body.
