@@ -43,9 +43,27 @@ func _on_mob_timer_timeout() -> void:
 	var mob_spawn_location = $MobPath/MobSpawnLocation
 	mob_spawn_location.progress_ratio = randf()
 	
+	# track player position and check if mob_spawn_location is in a zone around (to be defined), generate another position
+	
 	# Set the mob's position to the random location.
 	mob.position = mob_spawn_location.position
-	
+	if(mob.position.x <= $Player.position.x + 10):
+		print("***************************************************")
+		print("PLAYER'S X POSITION : " + str($Player.position.x))
+		print("MOB SPAWN X TOO CLOSE FROM PLAYER !!")
+		print("MOB SPAWN PREVIOUS X POS : " + str(mob.position.x))
+		mob.position.x += 20
+		print("MOB SPAWN NEW POS : " + str(mob.position.x))
+		print("---------------------------------------------------")
+	elif(mob.position.y <= $Player.position.y + 10):
+		print("***************************************************")
+		print("PLAYER'S Y POSITION : " + str($Player.position.y))
+		print("MOB SPAWN Y TOO CLOSE FROM PLAYER !!")
+		print("MOB SPAWN PREVIOUS Y POS : " + str(mob.position.y))
+		mob.position.y += 20 
+		print("MOB SPAWN NEW Y POS : " + str(mob.position.y))
+		print("---------------------------------------------------")
+		
 	# Set the mob's driection perpendicular to the path direction.
 	var direction = mob_spawn_location.rotation + PI / 2
 	
