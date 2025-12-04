@@ -43,26 +43,21 @@ func _on_mob_timer_timeout() -> void:
 	var mob_spawn_location = $MobPath/MobSpawnLocation
 	mob_spawn_location.progress_ratio = randf()
 	
-	# track player position and check if mob_spawn_location is in a zone around (to be defined), generate another position
+	# Minimum distance between player's position and enemy's spawn position.
+	var MIN_SPAWN_DISTANCE = 300.0
 	
+	# Check whether the random mob spawn position is far enough from the player.
+	# If not, generate a new random position.
+	if($Player.position.distance_to(mob_spawn_location.position) <= MIN_SPAWN_DISTANCE):
+		print("Enemy spotted in danger area!!")
+		print("Player's position : " + str($Player.position))
+		print("Enemy's  position : " + str(mob_spawn_location.position))
+		mob_spawn_location.progress_ratio = randf()
+		print("New enemy position : " + str(mob_spawn_location.position))
+		print("************************************")
+		
 	# Set the mob's position to the random location.
 	mob.position = mob_spawn_location.position
-	if(mob.position.x <= $Player.position.x + 10):
-		print("***************************************************")
-		print("PLAYER'S X POSITION : " + str($Player.position.x))
-		print("MOB SPAWN X TOO CLOSE FROM PLAYER !!")
-		print("MOB SPAWN PREVIOUS X POS : " + str(mob.position.x))
-		mob.position.x += 20
-		print("MOB SPAWN NEW POS : " + str(mob.position.x))
-		print("---------------------------------------------------")
-	elif(mob.position.y <= $Player.position.y + 10):
-		print("***************************************************")
-		print("PLAYER'S Y POSITION : " + str($Player.position.y))
-		print("MOB SPAWN Y TOO CLOSE FROM PLAYER !!")
-		print("MOB SPAWN PREVIOUS Y POS : " + str(mob.position.y))
-		mob.position.y += 20 
-		print("MOB SPAWN NEW Y POS : " + str(mob.position.y))
-		print("---------------------------------------------------")
 		
 	# Set the mob's driection perpendicular to the path direction.
 	var direction = mob_spawn_location.rotation + PI / 2
