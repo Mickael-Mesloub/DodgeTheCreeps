@@ -16,6 +16,7 @@ func game_over() -> void:
 	$MobTimer.stop()
 	$HUD.show_game_over()
 	$Music.stop()
+	$HitSound.play()
 	$DeathSound.play()
 	
 func new_game():
@@ -72,6 +73,7 @@ func _on_mob_timer_timeout() -> void:
 	
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
+	$MobPopSound.play()
 
 func _on_start_timer_timeout() -> void:
 	$MobTimer.start()
@@ -80,6 +82,3 @@ func _on_start_timer_timeout() -> void:
 func _on_score_timer_timeout() -> void:
 	score += 1
 	$HUD.update_score(score)
-
-func _on_hud_start_game() -> void:
-	pass # Replace with function body.
